@@ -1,0 +1,130 @@
+﻿@using HealthSolution.Extensions
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - Administração Clínica</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    @{
+        var user = Session["userId"] != null ? Session["userId"].ToString() : "";
+        bool isAdmin = !string.IsNullOrEmpty(user) && user == "admin";
+    }
+</head>
+<body style="background-color:#E7ECEE">
+    <div class="card rounded shadow p-3 mb-5" style="width:95%;height:90%;margin:auto">
+        <div class="card-body">
+            <label class="float-left infLabel form-control" id="ipLabel" style="display:none">@Utility.GetLocalIPAddress()</label>
+            <img src="~/Content/Images/logo1.png" class="logo-central" id="logo-clinica">
+            <img src="~/Content/Images/information.png" style="float:right;" id="imgInformation" />
+            <br />
+            <hr />
+            <nav class="navbar navbar-expand-xl" style="background-color:#b00000; max-height:64px">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggler"
+                            data-toggle="collapse" data-target=".navbar-collapse">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                </div>
+                <div class="navbar-collapse collapse" style="height:100%">
+                    <ul class="navbar-nav">
+                        <li class="nav-item active">@Html.ActionLink("Home", "Index", "Home", new { }, new { @class = "nav-link" })</li>
+                        @*<li class="nav-item">@Html.ActionLink("Sobre", "About", "Home", new { }, new { @class = "nav-link" })</li>*@
+                        <li class="nav-item ">@Html.ActionLink("Agenda", "Agenda", "EspecialistaViewModel", new { }, new { @class = "nav-link" })</li>
+                        <li class="nav-item ">@Html.ActionLink("Pacientes", "Index", "PacienteViewModel", new { }, new { @class = "nav-link" })</li>
+                        <li class="nav-item ">@Html.ActionLink("Consultas", "Index", "ConsultaViewModel", new { }, new { @class = "nav-link" })</li>
+                        <li class="nav-item ">@Html.ActionLink("Procedimentos", "Index", "IntervencaoViewModel", new { }, new { @class = "nav-link" })</li>
+                        <li class="nav-item ">@Html.ActionLink("Especialistas", "Index", "EspecialistaViewModel", new { }, new { @class = "nav-link" })</li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink"
+                               role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Administração
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                                @Html.ActionLink("Formas de Pagamento", "Index", "FormasPagamento", new { }, new { @class = "dropdown-item" })
+                                @Html.ActionLink("Especialidades", "Index", "Especialidades", new { }, new { @class = "dropdown-item" })
+                                @Html.ActionLink("Tipos de Procedimento", "Index", "Procedimentos", new { }, new { @class = "dropdown-item" })
+                                @Html.ActionLink("Finanças", "Finances", "Report", new { }, new { @class = "dropdown-item" })
+                                @Html.ActionLink("Modelos Anamnese", "Index", "ModeloAnamnese", new { }, new { @class = "dropdown-item" })
+
+                                @if (isAdmin)
+                                {
+                                    @Html.ActionLink("Usuários", "Index", "Usuarios", new { }, new { @class = "dropdown-item danger" })
+                                }
+                            </div>
+                        </li>
+                    </ul>
+                    <ul class="nav navbar-nav ml-auto">
+                        <li class="nav-item link-3 row">@Html.ActionLink("Logout", "Logout", "Admin", new { }, new { @class = "nav-link" })<span class="oi mt-2" data-glyph="account-login" style="font-size:18px"></span></li>
+                    </ul>
+                </div>
+            </nav>
+            <div class="body-content">
+                @if (ViewBag.Message != null && ViewBag.StyleClass != null)
+                {
+                    <div class="@ViewBag.StyleClass">@ViewBag.Message</div>
+                }
+                <div id="globalMessage"></div>
+                @RenderBody()
+                <hr />
+                <input type="hidden" id="EspecialistaViewModelController" value="@Url.Action("","EspecialistaViewModel",new { })" />
+                <input type="hidden" id="PacienteViewModelController" value="@Url.Action("","PacienteViewModel",new { })" />
+                <input type="hidden" id="ProcedimentosController" value="@Url.Action("","Procedimentos",new { })" />
+                <input type="hidden" id="ConsultaController" value="@Url.Action("","ConsultaViewModel",new { })" />
+                <input type="hidden" id="ModeloAnamneseController" value="@Url.Action("","ModeloAnamnese",new { })" />
+
+                <footer class="text-center">
+                    <h6>&copy; @DateTime.Now.Year - Thárgylla Odontologia</h6>
+                </footer>
+            </div>
+        </div>
+    </div>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/modal")
+    @Scripts.Render("~/Scripts/util")
+    @Scripts.Render("~/bundles/bootstrap")
+    @Scripts.Render("~/Content/css")
+    <script type="text/javascript">
+        $('.date').mask('00/00/0000');
+        $('.cpf').mask('000.000.000-00', { reverse: true });
+        $('.phone').mask('(00) 00000-0000');
+        $('.money').mask('000.000.000.000.000,00', { reverse: true });
+
+        jQuery(function ($) {
+            $.datepicker.regional['pt-BR'] = {
+                closeText: 'Fechar',
+                prevText: '&#x3c;Anterior',
+                nextText: 'Pr&oacute;ximo&#x3e;',
+                currentText: 'Hoje',
+                monthNames: ['Janeiro', 'Fevereiro', 'Mar&ccedil;o', 'Abril', 'Maio', 'Junho',
+                'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'],
+                monthNamesShort: ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun',
+                'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez'],
+                dayNames: ['Domingo', 'Segunda-feira', 'Ter&ccedil;a-feira', 'Quarta-feira', 'Quinta-feira', 'Sexta-feira', 'Sabado'],
+                dayNamesShort: ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sab'],
+                dayNamesMin: ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sab'],
+                weekHeader: 'Sm',
+                dateFormat: 'dd/mm/yy',
+                firstDay: 0,
+                isRTL: false,
+                showMonthAfterYear: false,
+                yearSuffix: ''
+            };
+            $.datepicker.setDefaults($.datepicker.regional['pt-BR']);
+        });
+
+        $(function () {
+            $(".datepicker").datepicker();
+        });
+
+        document.getElementById("imgInformation").onclick = function () {
+            var label = document.getElementById("ipLabel");
+            label.style.display = label.style.display == 'none' ? 'block' : 'none';
+        }
+
+    </script>
+    @RenderSection("scripts", required: false)
+</body>
+</html>

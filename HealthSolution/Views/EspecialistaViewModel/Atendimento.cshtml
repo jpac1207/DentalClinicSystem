@@ -1,0 +1,110 @@
+﻿@model HealthSolution.ViewModels.AtendimentoViewModel
+@using HealthSolution.Extensions
+@{
+    ViewBag.Title = "Atendimento";
+}
+
+<p class="mt-3">
+    Atendimento
+</p>
+
+@using (Html.BeginForm("SalvarAtendimento", "EspecialistaViewModel", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="row mt-5">
+        <div class="col-md-8"></div>
+
+        <div class="col-md-4">
+            <div class="row float-right mr-1">
+                @Html.DropDownList("ModeloAnamneses", null, htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessage("ModeloAnamneses", "", new { @class = "text-danger" })
+            </div>
+        </div>
+    </div>
+
+    <div class="row mt-1">
+
+        <div class="col-md-3">
+
+            <div class="card shadow" style="background-color:#F1EDF8;min-height:100%;">
+                <table class="m-3">
+                    <tr>
+                        <td>
+                            <label class="font-weight-bold" style="color:dimgray;font-size:large">Paciente:</label> <label style="font-size:medium" id="lblPaciente">@Model.NomePaciente</label>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <label class="font-weight-bold" style="color:dimgray;font-size:large">Data de Nascimento:</label> <label style="font-size:medium"> @Model.DataNascimento.Day/@Model.DataNascimento.Month/@Model.DataNascimento.Year</label>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <label class="font-weight-bold" style="color:dimgray;font-size:large" id="lblEspecialidade"> @(Model.Tipo == "Consulta" ? "Especialidade" : "Procedimento"): </label> <label style="font-size:medium"> @Model.Especialidade</label>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <label class="font-weight-bold" style="color:dimgray;font-size:large" >Dentista</label> <label style="font-size:medium" id="lblEspecialista"> @Model.NomeEspecialista </label>
+                        </td>
+                    </tr>
+
+
+                    <tr>
+                        <td>
+                            <label class="font-weight-bold" style="color:dimgray;font-size:large"> Observação: </label> <label style="font-size:medium"> @Model.Observacao </label>
+                        </td>
+                    </tr>
+                </table>
+
+            </div>
+        </div>
+
+        <div class="col-md-9">
+
+            <div class="card">
+                <div class="card-header">Anotações Dentista</div>
+                <div class="card-body">
+                    @Html.TextArea("anotacaoEspecialista", new { @class = "form-control", @cols = 50, @rows = 15, @Styles = "border-top:none;border-right:none;border-bottom:1px;min-height:400px" })
+                </div>
+
+            </div>
+
+            <div class="row mt-5">
+                <div class="col-md-7"></div>
+
+                <div class="col-md-5">
+                    <div class="row">
+                        <input type="text" id="txtMedicamentos" placeholder="Adicione um medicamento" class="form-control" />
+                        <span class="btn btn-light ml-3" id="btnAdicionar">Adicionar</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card mt-1">
+                <div class="card-header">Medicamentos</div>
+                <div class="card-body">
+                    @Html.TextArea("anotacaoMedicamentos", new { @class = "form-control",@id = "txtmedicamentos", @cols = 50, @rows = 7, @Styles = "border-top:none;border-right:none;border-bottom:1px;min-height:300px" })
+                    
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <input type="hidden" name="idAtendimento" value="@Model.IdAtendimento"/>
+    <input type="hidden" name="tipo" value="@Model.Tipo" />
+
+    <div class="text-center">
+        <input type="submit" value="Imprimir Receita" class="btn btn-success mt-5" id="btnImprimir"/>
+        @*@Html.ActionLink("Salvar Atendimento", "SalvarAtendimento", new { id = Model.IdAtendimento, tipo = Model.Tipo, anotacao = Model.AnotacaoEspecialista }, new { @class = "btn btn-primary mt-5" })*@
+        <input type="submit" value="Salvar Atendimento" class="btn btn-primary mt-5" />
+    </div>
+}
+
+
+@section Scripts {
+    @Scripts.Render("~/print");
+    @Scripts.Render("~/printcss");
+    @Scripts.Render("~/atendimento")
+}

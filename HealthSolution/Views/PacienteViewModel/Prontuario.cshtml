@@ -1,0 +1,156 @@
+﻿@model IEnumerable<HealthSolution.ViewModels.ProntuarioViewModel>
+@using HealthSolution.Models
+
+@{
+    ViewBag.Title = "Prontuário";
+}
+
+
+<p class="mt-3 ">
+    Prontuário <label id="nome-paciente">@(Model.Count() > 0 ? Model.ElementAt(0).NomePaciente : "")</label>
+</p>
+
+
+<div class="card mb-5" style="background-color:#F1EDF8">
+    @using (Html.BeginForm(null, null, FormMethod.Post, new { @class = "card-body" }))
+    {
+        <div class="row">
+            <div class="col-md-2">
+                @Html.TextBox("doutor", null, new { @class = "form-control", placeholder = "Doutor", onchange = "form.submit()" })
+            </div>
+            <div class="col-md-2">
+                @Html.TextBox("procedimento", null, new { @class = "form-control", placeholder = "Procedimento", onchange = "form.submit()" })
+            </div>
+            <div class="col-md-2">
+                @Html.TextBox("data", null, new { @class = "form-control date datepicker", placeholder = "Data", onchange = "form.submit()" })
+            </div>
+            <div class="col-md-2">
+                <button class="btn btn-success">Buscar</button>
+            </div>
+        </div>
+    }
+</div>
+
+<div class="container">
+
+    @foreach (var item in Model)
+    {
+        <div class="card rounded shadow p-3 mb-5" style="width:95%;height:90%;margin:auto">
+            <div class="card-body">
+                <label class="font-weight-bold" style="color:gray; font-size:larger"> @item.Tipo</label>
+                <label id="lblData" class="ml-auto float-right" style="color:gray;font-size:larger">
+                    @(item.Date != null ? item.Date.Date.ToString("dd/MM/yyyy") : "")
+                    @(item.Hora >= 10 ? item.Hora.ToString() : string.Concat("0", item.Hora.ToString())):@(item.Minuto >= 10 ? item.Minuto.ToString() : string.Concat("0", item.Minuto.ToString()))
+                </label><br />
+                <p></p>
+                <label class="font-weight-bold" style="color:gray"> Especialista: </label> <label id="lblEspecialista" style="color:gray"> @item.NomeEspecialista </label> <br />
+                <label class="font-weight-bold" style="color:gray"> Especialidade: </label> <label id="lblEspecialista" style="color:gray"> @item.Especialidade </label> <br />
+                <div class="card mt-3">
+                    <div class="card-header"> Anotações Especialista</div>
+                    <div class="card-body">
+                        @item.AnotacaoEspecialista
+                    </div>
+                </div>
+                <button class="btn btn-light mt-4 float-right" data-toggle="modal" data-target=".bd-example-modal-lg" id="@item.Tipo-@item.Id">Visualizar</button>
+            </div>
+        </div>
+        <br />
+    }
+
+
+</div>
+<div>
+    @Html.ActionLink("Voltar", "Index")
+</div>
+
+<div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
+     aria-hidden="true" style="z-index:10000000; width:100%" id="modalProntuario">
+    <div class="modal-dialog modal-lg" style="width:90%">
+        <div class="modal-content">
+            <div class="modal-header">
+                <label class="font-weight-bold" style="color:gray; font-size:larger" id="lblTipo"> Tipo</label>
+                <label id="lblData" class="ml-auto float-right" style="color:gray;font-size:larger"> data </label><br />
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <label class="font-weight-bold" style="color:gray"> Paciente: </label> <label id="lblPacientemd" style="color:gray"> teste </label> <br />
+
+                <label class="font-weight-bold" style="color:gray"> Especialista: </label> <label id="lblEspecialistamd" style="color:gray"> teste </label> <br />
+                <label class="font-weight-bold" style="color:gray"> Especialidade: </label> <label id="lblEspecialidademd" style="color:gray"> teste </label> <br />
+                <div class="card mt-3">
+                    <div class="card-header"> Anotações Especialista</div>
+                    <div class="card-body">
+                        <textarea id="txtAnotacaoEspecialista" style="color:gray;width:100%;border:none;" readonly></textarea><br />
+                    </div>
+                </div>
+
+                <div class="card mt-3">
+                    <div class="card-header"> Medicamentos</div>
+                    <div class="card-body">
+                        <textarea id="txtMedicamentos" style="color:gray;width:100%;border:none;" readonly></textarea><br />
+                    </div>
+                </div>
+
+                <div class="card mt-3">
+                    <div class="card-header"> Observações</div>
+                    <div class="card-body">
+                        <textarea id="txtObservacao" style="color:gray;width:100%;border:none" readonly></textarea><br />
+                    </div>
+                </div>
+
+                <p class="mt-5 font-weight-bold" style="font-size:medium">
+                    Documentos <span class="oi oi-file"></span>
+                    <span class="ml-auto">
+                        <input type="file" name="file" class="btn btn-light" id="fileInput" />
+                        <button class="btn btn-success align-top ml-auto" id="btnAdicionarFile">
+                            Adicionar
+                            <span class="oi oi-plus"></span>
+                        </button>
+                    </span>
+                </p>
+                <table class="table table-striped" style="width:100%;">
+                    <tbody id="tbodyFiles">
+                        <tr>
+                            <td style="width:85%">
+                                <label class="ml-3 mt-2"></label>
+                            </td>
+                            <td class="mr-3">
+                                <span class="oi oi-eye mr-1 mt-2" style="font-size:larger;color:dimgrey;cursor:pointer"></span>
+                            </td>
+                            <td class="mr-3">
+                                <span class="ml-4 oi oi-data-transfer-download mt-2" style="font-size:large;color:dimgrey;cursor:pointer"></span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="width:85%">
+                                <label class="ml-3 mt-2">Documento 2</label>
+                            </td>
+
+                            <td class="mr-3">
+                                <span class="oi oi-eye mr-1 mt-2" style="font-size:larger;color:dimgrey;cursor:pointer"></span>
+                            </td>
+                            <td class="mr-3">
+                                <span class="ml-4 oi oi-data-transfer-download mt-2" style="font-size:large;color:dimgrey;cursor:pointer"></span>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <button class="btn btn-success float-right mt-5 ml-2" id="btnSalvar">Salvar</button>
+                <button class="btn btn-default float-right mt-5 ml-2" id="btnImprimir">Imprimir <span class="oi oi-print"></span></button>
+            </div>
+        </div>
+    </div>
+
+
+    <canvas id="myCanvas" />
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/Content/css")
+    @Scripts.Render("~/print")
+    @Scripts.Render("~/printcss")
+    @Scripts.Render("~/prontuario")
+}

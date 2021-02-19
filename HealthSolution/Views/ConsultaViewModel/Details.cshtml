@@ -1,0 +1,97 @@
+﻿@model HealthSolution.ViewModels.ConsultaViewModel
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2 class="text-center">Detalhes</h2>
+
+<div>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            Especialidade
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Especialidade.Nome)
+        </dd>
+
+        <dt>
+            Dentista
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Especialista.Nome)
+        </dd>
+
+        <dt>
+            Forma Pagamento
+        </dt>
+
+        <dd>
+            @(Model.FormaPagamento != null ? Model.FormaPagamento.Nome : "-")
+        </dd>
+
+        <dt>
+            Valor Pago
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ValorPago)
+        </dd>
+
+        <dt>
+            Paciente
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Paciente.Nome)
+        </dd>
+
+        <dt>
+            Data
+        </dt>
+
+        <dd>
+            @(Model.Date != null ? Model.Date.ToString("dd/MM/yyy") : "-")
+        </dd>
+
+        <dt>
+            Horário
+        </dt>
+
+        <dd>
+            @(Model.Hora + ":" + Model.Minuto)
+        </dd>
+
+        <dt>
+            Observação
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Observacao)
+        </dd>
+
+        <dt>
+            Tratamento
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Tratamento)
+        </dd>
+
+        <dt>
+            Arquivo
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.LinkArquivo)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Editar", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink("Voltar para a Lista", "Index")
+</p>

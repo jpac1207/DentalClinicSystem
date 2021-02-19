@@ -1,0 +1,141 @@
+﻿body {
+    padding-top: 10px;
+    padding-bottom: 20px;
+}
+
+/* Set padding to keep content from hitting the edges */
+.body-content {
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+/* Override the default bootstrap behavior where horizontal description lists 
+   will truncate terms that are too long to fit in the left column 
+*/
+.dl-horizontal dt {
+    white-space: normal;
+}
+
+/* Set width on the form input elements since they're 100% wide by default */
+input,
+select,
+textarea {
+    max-width: 280px;
+}
+
+.buttonCell {
+    min-width: 300px;
+}
+
+.phoneCell {
+    min-width: 150px;
+}
+
+.textAreaObs {
+    max-width: 650px;
+}
+
+hr {
+    display: block;
+    height: 1.5px;
+    border: 0;
+    border-top: 1px solid #ccc;
+    padding: 0;
+    box-shadow: 0 20px 20px -20px #333;
+}
+
+.nav-link {
+    color: white;
+}
+
+.btn-click {
+    Text-decoration: none;
+}
+
+.Title-Page {
+    color: dimgray;
+    text-decoration: underline underline;
+}
+
+.Title-Link {
+    color: white;
+    font-size: medium;
+}
+
+p {
+    font-weight: normal;
+    font-size: 24px;
+    color: #777;
+    border-bottom: 1px solid #d5d9da;
+    margin-bottom: 15px;
+    padding-bottom: 10px;
+}
+
+.logo-central {
+    position: absolute;
+    top: 2px;
+    z-index: 20000;
+    width: 113px;
+    margin-left: -50px;
+    left: 50%;
+}
+
+a {
+    color: inherit;
+}
+
+    a:hover {
+        color: inherit;
+        text-decoration: none;
+    }
+
+    .infLabel{
+        max-width: 250px;
+    }
+
+.modal.modal-wide .modal-dialog {
+    width: 90%;
+}
+
+.modal-wide .modal-body {
+    overflow-y: auto;
+}
+
+textarea {
+    min-width: 100%;
+    border:none;
+}
+
+#customFile .custom-file-control:lang(en)::after {
+    content: "Select file...";
+}
+
+#customFile .custom-file-control:lang(en)::before {
+    content: "Click me";
+}
+
+/*when a value is selected, this class removes the content */
+.custom-file-control.selected:lang(en)::after {
+    content: "" !important;
+}
+
+.custom-file {
+    overflow: hidden;
+}
+
+.custom-file-control {
+    white-space: nowrap;
+}
+
+.link-3 {
+    transition: 0.3s;
+    color: #ffffff;
+    padding: 2px 10px;
+    margin: 2px 10px;
+}
+
+    .link-3:hover {
+        border-bottom: 1px solid;
+        padding: 2px 10px;
+        margin: 2px 10px;
+    }

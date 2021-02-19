@@ -1,0 +1,36 @@
+ALTER TABLE `bdhealthsolution`.`tbpaciente` 
+ADD COLUMN `CelularId` INT(11) NULL AFTER `TelefoneId`;
+
+ALTER TABLE `bdhealthsolution`.`tbpaciente` 
+ADD INDEX `FK_tbpaciente_tbtelefone_celular_idx` (`CelularId` ASC) VISIBLE;
+;
+ALTER TABLE `bdhealthsolution`.`tbpaciente` 
+ADD CONSTRAINT `FK_tbpaciente_tbtelefone_celular`
+  FOREIGN KEY (`CelularId`)
+  REFERENCES `bdhealthsolution`.`tbtelefone` (`Id`)
+  ON DELETE NO ACTION
+  ON UPDATE NO ACTION;
+
+insert into tbtelefone (Numero) values ('-');
+
+
+#change celulaId to int? and run 
+
+  db.Pacientes.ToList().ForEach(x =>
+            {
+                var cellphone = new Telefone() { Numero = "-"};
+                db.Telefones.Add(cellphone);
+                db.SaveChanges();
+                x.CelularId = cellphone.Id;
+            });
+            db.SaveChanges();
+
+ALTER TABLE `bdhealthsolution`.`tbpaciente` 
+ADD COLUMN `Email` LONGTEXT NULL AFTER `CelularId`;
+
+ALTER TABLE `bdhealthsolution`.`tbpaciente` 
+ADD COLUMN `NumeroCarteiraPlano` VARCHAR(255) NULL AFTER `Email`,
+CHANGE COLUMN `Email` `Email` VARCHAR(255) NULL DEFAULT NULL ;
+
+ALTER TABLE `bdhealthsolution`.`tbconsulta` 
+ADD COLUMN `Tratamento` LONGTEXT NULL DEFAULT NULL AFTER `AtendimentoRealizado`;

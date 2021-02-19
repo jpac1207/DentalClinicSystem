@@ -1,0 +1,128 @@
+﻿@model HealthSolution.ViewModels.EspecialistaViewModel
+@using HealthSolution.Extensions
+
+@{
+    ViewBag.Title = "Detalhes";
+}
+
+<h2 class="text-center">Detalhes</h2>
+
+<div>
+    
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Nome)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Nome)
+        </dd>
+
+        <dt>
+            Data de Nascimento
+        </dt>
+
+        <dd>
+            @(Model.DataNascimento != null ? Model.DataNascimento.ToString("dd/MM/yyy") : "-")
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Telefone)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Telefone)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Email)
+        </dt>
+
+        <dd>
+             @Html.DisplayFor(model => model.Email)
+        </dd>
+
+        <dt>
+           CRO
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Crm)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ConselhoUF)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ConselhoUF)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Especialidade)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Especialidade)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Cidade)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Cidade)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Bairro)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Bairro)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Rua)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Rua)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Numero)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Numero)
+        </dd>
+
+        <dt>
+            Dias de Atendimento
+        </dt>
+
+        <dd>
+            @((Model.AtendeSegunda ? "|Seg|" : "") +
+                    (Model.AtendeTerca ? "|Ter|" : "") +
+                    (Model.AtendeQuarta ? "|Qua|" : "") +
+                    (Model.AtendeQuinta ? "|Quin|" : "") +
+                    (Model.AtendeSexta ? "|Sex|" : "") +
+                    (Model.AtendeSabado ? "|Sab|" : "") +
+                    (Model.AtendeDomingo ? "|Dom|" : ""))
+        </dd>
+
+        <dt>
+            Horário Atendimento
+        </dt>
+
+        <dd>
+           @Html.GetFormatedHour(Model.HoraInicial, Model.MinutoInicial) - @Html.GetFormatedHour(Model.HoraFinal, Model.MinutoFinal)
+        </dd>
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Editar", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink("Voltar para a Lista", "Index")
+</p>

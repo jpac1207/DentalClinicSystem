@@ -1,0 +1,112 @@
+﻿@model HealthSolution.ViewModels.IntervencaoViewModel
+
+@{
+    ViewBag.Title = "Editar";
+}
+
+<h2 class="text-center">Editar</h2>
+
+
+@using (Html.BeginForm("Edit","IntervencaoViewModel", FormMethod.Post, htmlAttributes: new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.Id)
+
+        <div class="row">
+            <div class="col-md-4">
+                <label class="control-label">Procedimento</label>
+                <div class="col-md-10">
+                    @Html.DropDownList("ProcedimentoId", null, htmlAttributes: new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.ProcedimentoId, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <label class="control-label">Dentista</label>
+                <div class="col-md-10">
+                    @Html.DropDownList("EspecialistaId", null, htmlAttributes: new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.EspecialistaId, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <label class="control-label">Paciente</label>
+                <div class="col-md-10">
+                    @Html.DropDownList("PacienteId", null, htmlAttributes: new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.PacienteId, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-4">
+                <label class="control-label col-md-2">Data</label>
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.Date, new { htmlAttributes = new { @class = "form-control date datepicker" } })
+                    @Html.ValidationMessageFor(model => model.Date, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+
+            <div class="col-md-4">
+                <label class="control-label">Horário</label>
+                <div class="form-inline">
+                    <div class="form-group">
+                        @Html.DropDownListFor(model => model.Hora, null, htmlAttributes: new { @class = "form-control" })
+                        :
+                        @Html.DropDownListFor(model => model.Minuto, null, htmlAttributes: new { @class = "form-control" })
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <label class="control-label"> Forma de Pagamento</label>
+                <div class="col-md-10">
+                    @Html.DropDownList("FormaPagamentoId", null, htmlAttributes: new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.FormaPagamentoId, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <label class="control-label">Valor Pago</label>
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.ValorPago, new { htmlAttributes = new { @class = "form-control", @Value = 0 } })
+                    @Html.ValidationMessageFor(model => model.ValorPago, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6">
+                <label class="control-label">Observação</label>
+                <div class="col-md-10">
+                    @Html.TextAreaFor(model => model.Observacao, 6, 400, new { @class = "form-control textAreaObs" })
+                    @Html.ValidationMessageFor(model => model.Observacao, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="col-md-6">
+                <label class="control-label">Arquivo</label>
+                <input type="file" name="file" class="btn btn-light" />
+            </div>
+        </div>
+
+        <div class="form-group m-5">
+            <div class="text-center">
+                <input type="submit" value="Salvar" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Voltar para a Lista", "Index")
+</div>
+
+@section Scripts {
+    @*@Scripts.Render("~/bundles/jqueryval")*@
+    @Scripts.Render("~/intervencaoEdit")
+}

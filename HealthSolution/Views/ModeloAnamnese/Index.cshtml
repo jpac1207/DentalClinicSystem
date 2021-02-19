@@ -1,0 +1,75 @@
+﻿@model IEnumerable<HealthSolution.Models.ModeloAnamnese>
+@using HealthSolution.Extensions
+@using HealthSolution.Models
+
+@{
+    ViewBag.Title = "Modelos Anamnese";
+    var queryOptions = (QueryOptions)ViewBag.QueryOptions;
+}
+
+@{
+    string lvparams = "";
+    var nome = "";
+    if (ViewBag.nome != null)
+    {
+        nome = ViewBag.nome;
+    }
+
+    lvparams = string.Format("nome={0}", nome);
+}
+
+<br />
+<p>
+    Modelos Anamnese
+    <span style='float:right;'>
+        <a class="btn btn-primary" href="~/ModeloAnamnese/Create">Cadastrar <span class="oi oi-plus"></span></a>
+    </span>
+</p>
+
+<div class="card" style="background-color:#F1EDF8">
+    @using (Html.BeginForm(null, null, FormMethod.Post, new { @class = "card-body" }))
+    {
+        <div class="row">
+            <div class="col-md-4">
+                @Html.TextBox("nome", null, new { @class = "form-control", placeholder = "Modelo Anamnese", onchange = "form.submit()" })
+            </div>
+            <div class="col-md-4">
+                <button class="btn btn-success">Buscar</button>
+            </div>
+        </div>
+    }
+</div>
+
+<div class="table-responsive table-hover  mt-3">
+    <table class="table">
+        <tr class="bg-light text-dark">
+            <th>
+                @Html.DisplayNameFor(model => model.Nome)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Modelo)
+            </th>
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Nome)
+                </td>
+                <td style="max-width:600px">
+                    @Html.DisplayFor(modelItem => item.Modelo)
+                           
+                </td>
+                <td>
+
+                    @Html.ActionLink("Editar", "Edit", new { id = item.Id }, new { @class = "btn btn-primary" }) 
+                    @Html.ActionLink("Detalhar", "Details", new { id = item.Id }, new { @class = "btn btn-secondary" }) 
+                    @Html.ActionLink("Excluir", "Delete", new { id = item.Id }, new { @class = "btn btn-danger" })
+                </td>
+            </tr>
+        }
+
+    </table>
+</div>

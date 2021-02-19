@@ -1,0 +1,105 @@
+﻿@model HealthSolution.ViewModels.ConsultaViewModel
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2 class="text-center">Excluir</h2>
+
+<h3>Você realmente deseja excluir essa consulta?</h3>
+<div>
+    
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            Especialidade
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Especialidade.Nome)
+        </dd>
+
+        <dt>
+            Dentista
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Especialista.Nome)
+        </dd>
+
+        <dt>
+            Forma Pagamento
+        </dt>
+
+        <dd>
+            @(Model.FormaPagamento != null ? Model.FormaPagamento.Nome : "-")
+        </dd>
+
+        <dt>
+            Valor Pago
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ValorPago)
+        </dd>
+
+        <dt>
+            Paciente
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Paciente.Nome)
+        </dd>
+
+        <dt>
+            Data
+        </dt>
+
+        <dd>
+            @(Model.Date != null ? Model.Date.ToString("dd/MM/yyy") : "-")
+        </dd>
+
+        <dt>
+            Horário
+        </dt>
+
+        <dd>
+            @(Model.Hora + ":" + Model.Minuto)
+        </dd>
+
+        <dt>
+            Observação
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Observacao)
+        </dd>
+
+
+        <dt>
+            Tratamento
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Tratamento)
+        </dd>
+
+        <dt>
+            Arquivo
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.LinkArquivo)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Excluir" class="btn btn-danger" /> |
+            @Html.ActionLink("Voltar para a Lista", "Index")
+        </div>
+    }
+</div>

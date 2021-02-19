@@ -1,0 +1,127 @@
+﻿@model HealthSolution.ViewModels.PacienteViewModel
+
+@{
+    ViewBag.Title = "Excluir";
+}
+
+<h2>Excluir</h2>
+
+<h3>Você realmente deseja excluir o cadastro desse paciente?</h3>
+<div>
+    
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Nome)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Nome)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Cpf)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Cpf)
+        </dd>
+
+        <dt>
+            Data de Nascimento
+        </dt>
+
+        <dd>
+            @(Model.DataNascimento != null ? Model.DataNascimento.Date.ToString("dd/MM/yyyy") : "")
+        </dd>
+
+        <dt>
+            Data de Cadastro
+        </dt>
+
+        <dd>
+            @(Model.DataCadastro != null ? Model.DataCadastro.Date.ToString("dd/MM/yyyy") : "")
+        </dd>
+
+        <dt>
+            Como Conheceu?
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ComoConheceu)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Cidade)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Cidade)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Bairro)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Bairro)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Rua)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Rua)
+        </dd>
+
+        <dt>
+            Numero Residência
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NumeroResidencia)
+        </dd>
+
+        <dt>
+            Telefone
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NumeroTelefone)
+        </dd>
+
+        <dt>
+            Celular
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NumeroCelular)
+        </dd>
+
+        <dt>
+            E-mail
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Email)
+        </dd>
+
+        <dt>
+            Número Carteira Plano
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NumeroCarteiraPlano)
+        </dd>
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Excluir" class="btn btn-danger" /> |
+            @Html.ActionLink("Voltar para a Lista", "Index")
+        </div>
+    }
+</div>

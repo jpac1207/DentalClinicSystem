@@ -1,0 +1,41 @@
+﻿@model IEnumerable<HealthSolution.Models.Procedimento>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<p class="mt-3">
+    Tipos de Procedimento
+    <span style='float:right;' ">
+        <a class="btn btn-primary" href="@Url.Action("")/Create">Cadastrar Procedimento <span class="oi oi-plus"></span></a>
+    </span>
+</p>
+<table class="table">
+    <tr class="bg-light text-dark">
+        <th>
+            @Html.DisplayNameFor(model => model.Nome)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Valor)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Nome)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Valor)
+            </td>
+            <td>
+                @Html.ActionLink("Editar", "Edit", new { id = item.Id }, new { @class = "btn btn-primary" }) |
+                @Html.ActionLink("Detalhar", "Details", new { id = item.Id }, new { @class = "btn btn-secondary" }) |
+                @Html.ActionLink("Excluir", "Delete", new { id = item.Id }, new { @class = "btn btn-danger" })
+            </td>
+        </tr>
+    }
+
+</table>

@@ -1,0 +1,122 @@
+﻿@model HealthSolution.ViewModels.PacienteViewModel
+
+@{
+    ViewBag.Title = "Detalhes";
+}
+
+<h2>Detalhes do Paciente</h2>
+
+<div>
+
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Nome)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Nome)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Cpf)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Cpf)
+        </dd>
+
+        <dt>
+            Data de Nascimento
+        </dt>
+
+        <dd>
+            @(Model.DataNascimento != null ? Model.DataNascimento.Date.ToString("dd/MM/yyyy") : "")
+        </dd>
+
+        <dt>
+            Data de Cadastro
+        </dt>
+
+        <dd>
+            @(Model.DataCadastro != null ? Model.DataCadastro.Date.ToString("dd/MM/yyyy") : "")
+        </dd>
+
+        <dt>
+            Como Conheceu?
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ComoConheceu)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Cidade)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Cidade)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Bairro)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Bairro)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Rua)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Rua)
+        </dd>
+
+        <dt>
+            Numero Residência
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NumeroResidencia)
+        </dd>
+
+        <dt>
+            Telefone
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NumeroTelefone)
+        </dd>
+
+        <dt>
+            Celular
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NumeroCelular)
+        </dd>
+
+        <dt>
+            E-mail
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Email)
+        </dd>
+
+        <dt>
+            Número Carteira Plano
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NumeroCarteiraPlano)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Editar", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink("Voltar para a Lista", "Index")
+</p>

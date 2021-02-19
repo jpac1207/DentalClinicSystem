@@ -1,0 +1,195 @@
+﻿@model HealthSolution.ViewModels.IntervencaoViewModel
+
+@{
+    ViewBag.Title = "Agendar";
+}
+
+<p class="text-center mt-3">
+    Agendar Procedimento
+</p>
+
+@using (Html.BeginForm("Create", "IntervencaoViewModel", FormMethod.Post, htmlAttributes: new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+        <div><h4>Dados do Agendamento</h4></div>
+
+        <div class="row">
+            <div class="col-md-4">
+                <label class="control-label">Procedimento</label>
+                <div class="col-md-10">
+                    @Html.DropDownList("ProcedimentoId", null, htmlAttributes: new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.ProcedimentoId, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <label class="control-label">Especialista</label>
+                <div class="col-md-10">
+                    @Html.DropDownList("EspecialistaId", null, htmlAttributes: new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.EspecialistaId, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <label class="control-label">Data</label>
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.Date, new { htmlAttributes = new { @class = "form-control date datepicker" } })
+                    @Html.ValidationMessageFor(model => model.Date, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <label class="control-label"> Forma de Pagamento</label>
+                <div class="col-md-10">
+                    @Html.DropDownList("FormaPagamentoId", null, htmlAttributes: new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.FormaPagamentoId, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+
+            <div class="col-md-4">
+                <label class="control-label">Valor Pago</label>
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.ValorPago, new { htmlAttributes = new { @class = "form-control", @Value = 0 } })
+                    @Html.ValidationMessageFor(model => model.ValorPago, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+
+            <div class="col-md-4">
+                <label class="control-label">Horário</label>
+                <div class="form-inline">
+                    <div class="form-group">
+                        @Html.DropDownListFor(model => model.Hora, null, htmlAttributes: new { @class = "form-control" })
+                        :
+                        @Html.DropDownListFor(model => model.Minuto, null, htmlAttributes: new { @class = "form-control" })
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="mt-5"><h4>Dados do  Paciente</h4></div>
+
+        <div class="row">
+
+            <div class="col-md-4">
+                @Html.Label("CPF", htmlAttributes: new { @class = "control-label" })
+                <div class="col-md-10">
+                    <div class="row">
+                        <div class="col-md-10">
+                            @Html.Editor("Cpf", new { htmlAttributes = new { @class = "form-control cpf" } })
+                            @Html.ValidationMessage("Cpf", "", new { @class = "text-danger" })
+                        </div>
+                        <div class="col-md-1">
+                            <i class="oi oi-magnifying-glass float-right"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <label class="control-label">Paciente</label>
+                <div class="col-md-10">
+                    <div class="row">
+                        <div class="col-md-10">
+                            @Html.Editor("Nome", new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessage("Nome", "", new { @class = "text-danger" })
+                        </div>
+                        <label class="oi oi-magnifying-glass mt-2" style="font-size:20px;cursor:pointer" id="btnBuscar"></label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <label class="control-label">Data Nascimento</label>
+                <div class="col-md-10">
+                    @Html.Editor("DataNascimento", new { htmlAttributes = new { @class = "form-control date datepicker" } })
+                    @Html.ValidationMessage("DataNascimento", "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+        </div>
+
+        <div class="row">
+
+            <div class="col-md-4">
+                <label class="control-label">Cidade</label>
+                <div class="col-md-10">
+                    @Html.Editor("cidade", new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessage("cidade", "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <label class="control-label">Bairro</label>
+                <div class="col-md-10">
+                    @Html.Editor("bairro", new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessage("bairro", "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+
+            <div class="col-md-4">
+                <label class="control-label">Rua</label>
+                <div class="col-md-10">
+                    @Html.Editor("rua", new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessage("rua", "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+        </div>
+
+        <div class="row">
+            <div class="col-md-4">
+                <label class="control-label">Número Residência</label>
+                <div class="col-md-10">
+                    @Html.Editor("numero", new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessage("numero", "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <label class="control-label">Telefone</label>
+                <div class="col-md-10">
+                    @Html.Editor("telefone", new { htmlAttributes = new { @class = "form-control phone" } })
+                    @Html.ValidationMessage("telefone", "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+
+        <div class="mt-5"><h4>Dados Gerais</h4></div>
+
+        <div class="row">
+            <div class="col-md-6" style="width:100%">
+                <label class="control-label ">Observação</label>
+                <div class="col-md-10">
+                    @Html.TextAreaFor(model => model.Observacao, 6, 400, new { @class = "form-control textAreaObs" })
+                    @Html.ValidationMessageFor(model => model.Observacao, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="col-md-6">
+                <label class="control-label">Arquivo</label>
+                <input type="file" name="file" class="btn btn-light" />
+            </div>
+        </div>
+        <div class="form-group m-5">
+            <div class="text-center">
+                <input type="submit" value="Cadastrar" class="btn btn-primary" />
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Voltar para a Lista", "Index")
+</div>
+
+@section Scripts {
+    @*@Scripts.Render("~/bundles/jqueryval")*@
+    @Scripts.Render("~/intervencoes")
+}
